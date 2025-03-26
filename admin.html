@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们在一起的日子 - 管理</title>
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <!-- 登录选择屏幕 -->
+    <div class="login-select-screen" id="loginSelectScreen">
+        <div class="login-card">
+            <h2 class="login-title">选择登录类型</h2>
+            <div class="login-options">
+                <button id="boyLoginOption" class="btn btn-primary">男生登录</button>
+                <button id="girlLoginOption" class="btn btn-primary">女生登录</button>
+                <button id="adminLoginOption" class="btn btn-secondary">管理员登录</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 男生登录屏幕 -->
+    <div class="login-screen" id="boyLoginScreen" style="display: none;">
+        <div class="login-card">
+            <h2 class="login-title">男生登录</h2>
+            <div class="form-group">
+                <label for="boyUsername">用户名</label>
+                <input type="text" id="boyUsername" class="form-control" placeholder="输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="boyPassword">密码</label>
+                <input type="password" id="boyPassword" class="form-control" placeholder="输入密码">
+            </div>
+            <button id="boyLoginBtn" class="btn btn-primary">登录</button>
+            <button id="backFromBoyLogin" class="btn btn-secondary">返回</button>
+            <div class="alert alert-danger" id="boyLoginError" style="margin-top: 15px;">
+                用户名或密码错误，请重试。
+            </div>
+        </div>
+    </div>
+
+    <!-- 女生登录屏幕 -->
+    <div class="login-screen" id="girlLoginScreen" style="display: none;">
+        <div class="login-card">
+            <h2 class="login-title">女生登录</h2>
+            <div class="form-group">
+                <label for="girlUsername">用户名</label>
+                <input type="text" id="girlUsername" class="form-control" placeholder="输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="girlPassword">密码</label>
+                <input type="password" id="girlPassword" class="form-control" placeholder="输入密码">
+            </div>
+            <button id="girlLoginBtn" class="btn btn-primary">登录</button>
+            <button id="backFromGirlLogin" class="btn btn-secondary">返回</button>
+            <div class="alert alert-danger" id="girlLoginError" style="margin-top: 15px;">
+                用户名或密码错误，请重试。
+            </div>
+        </div>
+    </div>
+
+    <!-- 管理员登录屏幕 -->
+    <div class="login-screen" id="adminLoginScreen" style="display: none;">
+        <div class="login-card">
+            <h2 class="login-title">管理员登录</h2>
+            <div class="form-group">
+                <label for="adminPassword">请输入密码</label>
+                <input type="password" id="adminPassword" class="form-control" placeholder="输入密码">
+            </div>
+            <button id="adminLoginBtn" class="btn btn-primary">登录</button>
+            <button id="backFromAdminLogin" class="btn btn-secondary">返回</button>
+            <div class="alert alert-danger" id="adminLoginError" style="margin-top: 15px;">
+                密码错误，请重试。
+            </div>
+        </div>
+    </div>
+
+    <!-- 男生管理容器 -->
+    <div class="container" id="boyContainer" style="display: none;">
+        <h1>我的个人资料 <span class="heart">💙</span></h1>
+        <p>在这里，您可以编辑个人信息和照片。</p>
+        
+        <!-- 男生信息编辑部分 -->
+        <div class="card">
+            <h3 class="card-title">编辑个人信息</h3>
+            <div class="form-group">
+                <label for="boyMessageInput">个人留言</label>
+                <textarea id="boyMessageInput" class="form-control" rows="3" placeholder="写下你想说的话..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="boyTraitsInput">个人特征</label>
+                <textarea id="boyTraitsInput" class="form-control" rows="3" placeholder="描述一下你的特点..."></textarea>
+            </div>
+            <div class="alert alert-success" id="boyInfoSuccess">
+                信息保存成功！
+            </div>
+            <button id="saveBoyInfo" class="btn btn-primary">保存信息</button>
+        </div>
+        
+        <!-- 男生照片上传部分 -->
+        <div class="card">
+            <h3 class="card-title">上传照片</h3>
+            <div class="photo-preview">
+                <div class="preview-item">
+                    <img id="boyPhotoPreview" src="images/boy-default.jpg" alt="照片" class="preview-image">
+                    <p class="preview-title">我的照片</p>
+                </div>
+            </div>
+            
+            <div class="photo-upload">
+                <div class="upload-item">
+                    <label for="boyPhotoUpload">选择新照片</label>
+                    <label class="upload-btn" for="boyPhotoUpload">选择照片</label>
+                    <input type="file" id="boyPhotoUpload" accept="image/*">
+                </div>
+            </div>
+            
+            <div class="alert alert-success" id="boyPhotoSuccess">
+                照片保存成功！
+            </div>
+            <button id="saveBoyPhoto" class="btn btn-success">保存照片</button>
+        </div>
+        
+        <!-- 修改密码部分 -->
+        <div class="card">
+            <h3 class="card-title">修改密码</h3>
+            <div class="form-group">
+                <label for="boyCurrentPassword">当前密码</label>
+                <input type="password" id="boyCurrentPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="boyNewPassword">新密码</label>
+                <input type="password" id="boyNewPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="boyConfirmPassword">确认新密码</label>
+                <input type="password" id="boyConfirmPassword" class="form-control">
+            </div>
+            <div class="alert alert-success" id="boyPasswordSuccess">
+                密码修改成功！
+            </div>
+            <div class="alert alert-danger" id="boyPasswordError">
+                密码修改失败，请确认当前密码正确且两次新密码输入一致。
+            </div>
+            <button id="changeBoyPassword" class="btn btn-primary">修改密码</button>
+        </div>
+        
+        <div class="footer">
+            <button id="boyLogout" class="btn btn-secondary">退出登录</button>
+            <a href="index.html" class="home-link">返回主页</a>
+        </div>
+    </div>
+
+    <!-- 女生管理容器 -->
+    <div class="container" id="girlContainer" style="display: none;">
+        <h1>我的个人资料 <span class="heart">💗</span></h1>
+        <p>在这里，您可以编辑个人信息和照片。</p>
+        
+        <!-- 女生信息编辑部分 -->
+        <div class="card">
+            <h3 class="card-title">编辑个人信息</h3>
+            <div class="form-group">
+                <label for="girlMessageInput">个人留言</label>
+                <textarea id="girlMessageInput" class="form-control" rows="3" placeholder="写下你想说的话..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="girlTraitsInput">个人特征</label>
+                <textarea id="girlTraitsInput" class="form-control" rows="3" placeholder="描述一下你的特点..."></textarea>
+            </div>
+            <div class="alert alert-success" id="girlInfoSuccess">
+                信息保存成功！
+            </div>
+            <button id="saveGirlInfo" class="btn btn-primary">保存信息</button>
+        </div>
+        
+        <!-- 女生照片上传部分 -->
+        <div class="card">
+            <h3 class="card-title">上传照片</h3>
+            <div class="photo-preview">
+                <div class="preview-item">
+                    <img id="girlPhotoPreview" src="images/girl-default.jpg" alt="照片" class="preview-image">
+                    <p class="preview-title">我的照片</p>
+                </div>
+            </div>
+            
+            <div class="photo-upload">
+                <div class="upload-item">
+                    <label for="girlPhotoUpload">选择新照片</label>
+                    <label class="upload-btn" for="girlPhotoUpload">选择照片</label>
+                    <input type="file" id="girlPhotoUpload" accept="image/*">
+                </div>
+            </div>
+            
+            <div class="alert alert-success" id="girlPhotoSuccess">
+                照片保存成功！
+            </div>
+            <button id="saveGirlPhoto" class="btn btn-success">保存照片</button>
+        </div>
+        
+        <!-- 修改密码部分 -->
+        <div class="card">
+            <h3 class="card-title">修改密码</h3>
+            <div class="form-group">
+                <label for="girlCurrentPassword">当前密码</label>
+                <input type="password" id="girlCurrentPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="girlNewPassword">新密码</label>
+                <input type="password" id="girlNewPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="girlConfirmPassword">确认新密码</label>
+                <input type="password" id="girlConfirmPassword" class="form-control">
+            </div>
+            <div class="alert alert-success" id="girlPasswordSuccess">
+                密码修改成功！
+            </div>
+            <div class="alert alert-danger" id="girlPasswordError">
+                密码修改失败，请确认当前密码正确且两次新密码输入一致。
+            </div>
+            <button id="changeGirlPassword" class="btn btn-primary">修改密码</button>
+        </div>
+        
+        <div class="footer">
+            <button id="girlLogout" class="btn btn-secondary">退出登录</button>
+            <a href="index.html" class="home-link">返回主页</a>
+        </div>
+    </div>
+
+    <!-- 管理员容器 -->
+    <div class="container" id="adminContainer" style="display: none;">
+        <h1>恋爱日记 <span class="heart">❤</span> 管理</h1>
+        <p>在这里，您可以设置恋爱纪念日和管理账户密码。</p>
+        
+        <!-- 日期设置部分 -->
+        <div class="card">
+            <h3 class="card-title">设置纪念日</h3>
+            <div class="form-group">
+                <label for="anniversaryDate">选择你们在一起的第一天</label>
+                <input type="date" id="anniversaryDate" class="form-control">
+            </div>
+            <div class="alert alert-success" id="dateSuccess">
+                日期保存成功！
+            </div>
+            <button id="saveDate" class="btn btn-primary">保存日期</button>
+        </div>
+        
+        <!-- 账户管理部分 -->
+        <div class="card">
+            <h3 class="card-title">账户管理</h3>
+            
+            <!-- 男生账户 -->
+            <div class="account-section">
+                <h4>男生账户</h4>
+                <div class="form-group">
+                    <label for="resetBoyUsername">用户名</label>
+                    <input type="text" id="resetBoyUsername" class="form-control" value="boy">
+                </div>
+                <div class="form-group">
+                    <label for="resetBoyPassword">密码</label>
+                    <input type="password" id="resetBoyPassword" class="form-control" value="boy123">
+                </div>
+                <div class="alert alert-success" id="boyResetSuccess">
+                    男生账户重置成功！
+                </div>
+                <button id="resetBoyAccount" class="btn btn-warning">重置男生账户</button>
+            </div>
+            
+            <!-- 女生账户 -->
+            <div class="account-section">
+                <h4>女生账户</h4>
+                <div class="form-group">
+                    <label for="resetGirlUsername">用户名</label>
+                    <input type="text" id="resetGirlUsername" class="form-control" value="girl">
+                </div>
+                <div class="form-group">
+                    <label for="resetGirlPassword">密码</label>
+                    <input type="password" id="resetGirlPassword" class="form-control" value="girl123">
+                </div>
+                <div class="alert alert-success" id="girlResetSuccess">
+                    女生账户重置成功！
+                </div>
+                <button id="resetGirlAccount" class="btn btn-warning">重置女生账户</button>
+            </div>
+        </div>
+        
+        <!-- 重置部分 -->
+        <div class="card">
+            <h3 class="card-title">重置设置</h3>
+            <p style="text-align: left; margin-bottom: 20px;">
+                如果需要重新开始，您可以清除所有已保存的设置。这将同时清除纪念日、照片和个人信息。
+            </p>
+            <div class="alert alert-success" id="resetSuccess">
+                所有设置已重置！
+            </div>
+            <button id="resetAll" class="btn btn-danger">重置所有设置</button>
+        </div>
+        
+        <!-- 修改管理员密码部分 -->
+        <div class="card">
+            <h3 class="card-title">修改管理员密码</h3>
+            <div class="form-group">
+                <label for="currentAdminPassword">当前密码</label>
+                <input type="password" id="currentAdminPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="newAdminPassword">新密码</label>
+                <input type="password" id="newAdminPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="confirmAdminPassword">确认新密码</label>
+                <input type="password" id="confirmAdminPassword" class="form-control">
+            </div>
+            <div class="alert alert-success" id="adminPasswordSuccess">
+                密码修改成功！
+            </div>
+            <div class="alert alert-danger" id="adminPasswordError">
+                密码修改失败，请确认当前密码正确且两次新密码输入一致。
+            </div>
+            <button id="changeAdminPassword" class="btn btn-primary">修改密码</button>
+        </div>
+        
+        <div class="footer">
+            <button id="adminLogout" class="btn btn-secondary">退出登录</button>
+            <a href="index.html" class="home-link">返回主页</a>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

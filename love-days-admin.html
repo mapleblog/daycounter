@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们在一起的日子 - 管理</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #ff6b8b;
+            --secondary-color: #7158e2;
+            --light-color: #fff9f9;
+            --dark-color: #2d3436;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        /* 卡片容器 */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, var(--primary-color) 0%, transparent 70%);
+            animation: rotate 12s linear infinite;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 标题样式 */
+        h1 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-size: 1.8rem;
+        }
+        
+        .heart {
+            color: var(--primary-color);
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--dark-color);
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.25);
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* 提示信息 */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            color: white;
+            text-align: left;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: var(--success-color);
+        }
+        
+        .alert-danger {
+            background-color: var(--danger-color);
+        }
+        
+        /* 照片预览 */
+        .photo-preview {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .preview-item {
+            width: 180px;
+            margin: 10px;
+            text-align: center;
+        }
+        
+        .preview-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+        
+        .preview-title {
+            font-size: 1rem;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+        
+        /* 照片上传区域 */
+        .photo-upload {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .upload-item {
+            text-align: center;
+            margin: 10px;
+            width: 180px;
+        }
+        
+        .upload-item label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            font-weight: bold;
+        }
+        
+        .upload-item input[type="file"] {
+            display: none;
+        }
+        
+        .upload-btn {
+            display: block;
+            padding: 10px 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .upload-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* 表单区块 */
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            text-align: left;
+        }
+        
+        /* 底部导航 */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .home-link {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .home-link:hover {
+            color: var(--primary-color);
+        }
+        
+        /* 锁定屏幕 */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+        
+        .login-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-title {
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .preview-item, .upload-item {
+                width: 150px;
+            }
+            
+            .preview-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 登录屏幕 -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h2 class="login-title">管理员登录</h2>
+            <div class="form-group">
+                <label for="password">请输入密码</label>
+                <input type="password" id="password" class="form-control" placeholder="输入密码">
+            </div>
+            <button id="loginBtn" class="btn btn-primary">登录</button>
+            <div class="alert alert-danger" id="loginError" style="margin-top: 15px;">
+                密码错误，请重试。
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="adminContainer" style="display: none;">
+        <h1>恋爱日记 <span class="heart">❤</span> 管理</h1>
+        <p>在这里，您可以设置恋爱纪念日和上传情侣照片。</p>
+        
+        <!-- 日期设置部分 -->
+        <div class="card">
+            <h3 class="card-title">设置纪念日</h3>
+            <div class="form-group">
+                <label for="anniversaryDate">选择你们在一起的第一天</label>
+                <input type="date" id="anniversaryDate" class="form-control">
+            </div>
+            <div class="alert alert-success" id="dateSuccess">
+                日期保存成功！
+            </div>
+            <button id="saveDate" class="btn btn-primary">保存日期</button>
+        </div>
+        
+        <!-- 照片上传部分 -->
+        <div class="card">
+            <h3 class="card-title">上传照片</h3>
+            
+            <div class="photo-preview">
+                <div class="preview-item">
+                    <img id="boyPreview" src="/api/placeholder/400/400" alt="他的照片" class="preview-image">
+                    <p class="preview-title">他的照片</p>
+                </div>
+                
+                <div class="preview-item">
+                    <img id="girlPreview" src="/api/placeholder/400/400" alt="她的照片" class="preview-image">
+                    <p class="preview-title">她的照片</p>
+                </div>
+            </div>
+            
+            <div class="photo-upload">
+                <div class="upload-item">
+                    <label for="boyPhotoInput">上传他的照片</label>
+                    <label class="upload-btn" for="boyPhotoInput">选择照片</label>
+                    <input type="file" id="boyPhotoInput" accept="image/*">
+                </div>
+                
+                <div class="upload-item">
+                    <label for="girlPhotoInput">上传她的照片</label>
+                    <label class="upload-btn" for="girlPhotoInput">选择照片</label>
+                    <input type="file" id="girlPhotoInput" accept="image/*">
+                </div>
+            </div>
+            
+            <div class="alert alert-success" id="photoSuccess">
+                照片保存成功！
+            </div>
+            <button id="savePhotos" class="btn btn-success">保存照片</button>
+        </div>
+        
+        <!-- 重置部分 -->
+        <div class="card">
+            <h3 class="card-title">重置设置</h3>
+            <p style="text-align: left; margin-bottom: 20px;">
+                如果需要重新开始，您可以清除所有已保存的设置。这将同时清除纪念日和照片。
+            </p>
+            <div class="alert alert-success" id="resetSuccess">
+                所有设置已重置！
+            </div>
+            <button id="resetAll" class="btn btn-danger">重置所有设置</button>
+        </div>
+        
+        <!-- 修改密码部分 -->
+        <div class="card">
+            <h3 class="card-title">修改管理密码</h3>
+            <div class="form-group">
+                <label for="currentPassword">当前密码</label>
+                <input type="password" id="currentPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">新密码</label>
+                <input type="password" id="newPassword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">确认新密码</label>
+                <input type="password" id="confirmPassword" class="form-control">
+            </div>
+            <div class="alert alert-success" id="passwordSuccess">
+                密码修改成功！
+            </div>
+            <div class="alert alert-danger" id="passwordError">
+                密码修改失败，请确认当前密码正确且两次新密码输入一致。
+            </div>
+            <button id="changePassword" class="btn btn-primary">修改密码</button>
+        </div>
+        
+        <div class="footer">
+            <a href="index.html" class="home-link">返回主页</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置默认密码（实际应用中应该使用更安全的方式）
+            const DEFAULT_PASSWORD = "loveyou";
+            const STORAGE_PASSWORD_KEY = "adminPassword";
+            
+            // 获取DOM元素 - 登录相关
+            const loginScreen = document.getElementById('loginScreen');
+            const adminContainer = document.getElementById('adminContainer');
+            const passwordInput = document.getElementById('password');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginError = document.getElementById('loginError');
+            
+            // 获取DOM元素 - 日期设置相关
+            const anniversaryInput = document.getElementById('anniversaryDate');
+            const saveDateBtn = document.getElementById('saveDate');
+            const dateSuccess = document.getElementById('dateSuccess');
+            
+            // 获取DOM元素 - 照片相关
+            const boyPhotoInput = document.getElementById('boyPhotoInput');
+            const girlPhotoInput = document.getElementById('girlPhotoInput');
+            const boyPreview = document.getElementById('boyPreview');
+            const girlPreview = document.getElementById('girlPreview');
+            const savePhotosBtn = document.getElementById('savePhotos');
+            const photoSuccess = document.getElementById('photoSuccess');
+            
+            // 获取DOM元素 - 重置相关
+            const resetAllBtn = document.getElementById('resetAll');
+            const resetSuccess = document.getElementById('resetSuccess');
+            
+            // 获取DOM元素 - 密码修改相关
+            const currentPasswordInput = document.getElementById('currentPassword');
+            const newPasswordInput = document.getElementById('newPassword');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const changePasswordBtn = document.getElementById('changePassword');
+            const passwordSuccess = document.getElementById('passwordSuccess');
+            const passwordError = document.getElementById('passwordError');
+            
+            // 检查本地存储中是否有保存的管理员密码
+            let adminPassword = localStorage.getItem(STORAGE_PASSWORD_KEY) || DEFAULT_PASSWORD;
+            
+            // 从本地存储中获取日期和照片
+            const storedDate = localStorage.getItem('anniversaryDate');
+            const storedBoyPhoto = localStorage.getItem('boyPhoto');
+            const storedGirlPhoto = localStorage.getItem('girlPhoto');
+            
+            // 如果有存储的日期，则显示
+            if (storedDate) {
+                anniversaryInput.value = storedDate;
+            }
+            
+            // 如果有存储的照片，则显示预览
+            if (storedBoyPhoto) {
+                boyPreview.src = storedBoyPhoto;
+            }
+            
+            if (storedGirlPhoto) {
+                girlPreview.src = storedGirlPhoto;
+            }
+            
+            // 登录按钮点击事件
+            loginBtn.addEventListener('click', function() {
+                if (passwordInput.value === adminPassword) {
+                    loginScreen.style.display = 'none';
+                    adminContainer.style.display = 'block';
+                    loginError.style.display = 'none';
+                    passwordInput.value = '';
+                } else {
+                    loginError.style.display = 'block';
+                    passwordInput.value = '';
+                }
+            });
+            
+            // 回车键登录
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
+            
+            // 保存日期按钮点击事件
+            saveDateBtn.addEventListener('click', function() {
+                const dateValue = anniversaryInput.value;
+                
+                if (dateValue) {
+                    localStorage.setItem('anniversaryDate', dateValue);
+                    dateSuccess.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        dateSuccess.style.display = 'none';
+                    }, 3000);
+                } else {
+                    alert('请选择有效的日期！');
+                }
+            });
+            
+            // 处理照片上传
+            function handleImageUpload(input, imageElement) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        imageElement.src = e.target.result;
+                    };
+                    
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            
+            boyPhotoInput.addEventListener('change', function() {
+                handleImageUpload(this, boyPreview);
+            });
+            
+            girlPhotoInput.addEventListener('change', function() {
+                handleImageUpload(this, girlPreview);
+            });
+            
+            // 保存照片按钮点击事件
+            savePhotosBtn.addEventListener('click', function() {
+                if (boyPreview.src) {
+                    localStorage.setItem('boyPhoto', boyPreview.src);
+                }
+                
+                if (girlPreview.src) {
+                    localStorage.setItem('girlPhoto', girlPreview.src);
+                }
+                
+                photoSuccess.style.display = 'block';
+                
+                setTimeout(() => {
+                    photoSuccess.style.display = 'none';
+                }, 3000);
+            });
+            
+            // 重置所有按钮点击事件
+            resetAllBtn.addEventListener('click', function() {
+                if (confirm('确定要重置所有设置吗？这将清除日期和照片。')) {
+                    localStorage.removeItem('anniversaryDate');
+                    localStorage.removeItem('boyPhoto');
+                    localStorage.removeItem('girlPhoto');
+                    
+                    // 重置显示
+                    anniversaryInput.value = '';
+                    boyPreview.src = '/api/placeholder/400/400';
+                    girlPreview.src = '/api/placeholder/400/400';
+                    
+                    resetSuccess.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        resetSuccess.style.display = 'none';
+                    }, 3000);
+                }
+            });
+            
+            // 修改密码按钮点击事件
+            changePasswordBtn.addEventListener('click', function() {
+                const currentPassword = currentPasswordInput.value;
+                const newPassword = newPasswordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                
+                if (currentPassword === adminPassword && newPassword === confirmPassword && newPassword !== '') {
+                    // 更新密码
+                    adminPassword = newPassword;
+                    localStorage.setItem(STORAGE_PASSWORD_KEY, newPassword);
+                    
+                    // 显示成功消息
+                    passwordSuccess.style.display = 'block';
+                    passwordError.style.display = 'none';
+                    
+                    // 清空输入框
+                    currentPasswordInput.value = '';
+                    newPasswordInput.value = '';
+                    confirmPasswordInput.value = '';
+                    
+                    setTimeout(() => {
+                        passwordSuccess.style.display = 'none';
+                    }, 3000);
+                } else {
+                    // 显示错误消息
+                    passwordError.style.display = 'block';
+                    passwordSuccess.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        passwordError.style.display = 'none';
+                    }, 3000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们在一起的日子</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="bubbles">
+        <div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="bubble" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="bubble" style="left: 35%; animation-delay: 4s;"></div>
+        <div class="bubble" style="left: 50%; animation-delay: 6s;"></div>
+        <div class="bubble" style="left: 65%; animation-delay: 8s;"></div>
+        <div class="bubble" style="left: 80%; animation-delay: 10s;"></div>
+        <div class="bubble" style="left: 90%; animation-delay: 12s;"></div>
+    </div>
+
+    <div class="container">
+        <h1>We know each other <span class="heart">🤗</span></h1>
+        <div class="date-display">
+            <span id="startDate">暂未设置日期</span>
+        </div>
+        
+        <div class="profiles-container">
+            <div class="profile">
+                <div class="photo" id="boyPhoto">
+                    <img src="/images/boy-default.jpg" alt="他" id="boyImage">
+                </div>
+                <div class="profile-info">
+                    <div class="profile-message" id="boyMessage">这里是男生的留言...</div>
+                    <div class="profile-traits" id="boyTraits">这里是男生的个人特征...</div>
+                    <button class="edit-button" id="boyEditButton" data-side="boy">编辑</button>
+                </div>
+            </div>
+            
+            <div class="heart-center">🌷</div>
+            
+            <div class="profile">
+                <div class="photo" id="girlPhoto">
+                    <img src="/images/girl-default.jpg" alt="她" id="girlImage">
+                </div>
+                <div class="profile-info">
+                    <div class="profile-message" id="girlMessage">这里是女生的留言...</div>
+                    <div class="profile-traits" id="girlTraits">这里是女生的个人特征...</div>
+                    <button class="edit-button" id="girlEditButton" data-side="girl">编辑</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="counter" id="daysCounter">0</div>
+        <div class="counter-text">Days Now</div>
+    </div>
+    
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="loginTitle">登录</h2>
+            <div class="login-form">
+                <input type="text" id="username" placeholder="用户名">
+                <input type="password" id="password" placeholder="密码">
+                <button id="loginButton">登录</button>
+                <p id="loginMessage"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 编辑模态框 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="editTitle">编辑个人信息</h2>
+            <div class="edit-form">
+                <label for="messageInput">留言:</label>
+                <textarea id="messageInput" rows="3"></textarea>
+                <label for="traitsInput">个人特征:</label>
+                <textarea id="traitsInput" rows="3"></textarea>
+                <label for="photoInput">更换头像:</label>
+                <input type="file" id="photoInput" accept="image/*">
+                <button id="saveButton">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 隐藏的管理页面链接 -->
+    <a href="admin.html" class="admin-link">⚙️</a>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

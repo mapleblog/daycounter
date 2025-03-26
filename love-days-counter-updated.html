@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们在一起的日子</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #ff6b8b;
+            --secondary-color: #7158e2;
+            --light-color: #fff9f9;
+            --dark-color: #2d3436;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            letter-spacing: 0.03em;
+            line-height: 1.6;
+        }
+        
+        /* 卡片容器 */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, var(--primary-color) 0%, transparent 70%);
+            animation: rotate 12s linear infinite;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Ma Shan Zheng', cursive;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+        
+        .heart {
+            color: var(--primary-color);
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .date-display {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        /* 照片区域 */
+        .photos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            margin: 0 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .photo:hover {
+            transform: scale(1.05);
+        }
+        
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .heart-center {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        
+        /* 天数计数器 */
+        .counter {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-family: 'Ma Shan Zheng', cursive;
+            line-height: 1.2;
+        }
+        
+        .counter:hover {
+            transform: scale(1.1);
+        }
+        
+        .counter-text {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 0.08em;
+        }
+        
+        /* 气泡动画 */
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 15s infinite ease-in;
+        }
+        
+        .bubble:nth-child(2n) {
+            background: var(--secondary-color);
+            width: 20px;
+            height: 20px;
+        }
+        
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* 设置按钮 (隐藏的) */
+        .admin-link {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            color: rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+        }
+        
+        .admin-link:hover {
+            opacity: 0.6;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .counter {
+                font-size: 4rem;
+            }
+            
+            .photo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .counter {
+                font-size: 3.5rem;
+            }
+            
+            .photos {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .heart-center {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubbles">
+        <div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="bubble" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="bubble" style="left: 35%; animation-delay: 4s;"></div>
+        <div class="bubble" style="left: 50%; animation-delay: 6s;"></div>
+        <div class="bubble" style="left: 65%; animation-delay: 8s;"></div>
+        <div class="bubble" style="left: 80%; animation-delay: 10s;"></div>
+        <div class="bubble" style="left: 90%; animation-delay: 12s;"></div>
+    </div>
+
+    <div class="container">
+        <h1>We know each other <span class="heart">🤗</span></h1>
+        <div class="date-display">
+            <span id="startDate">暂未设置日期</span>
+        </div>
+        
+        <div class="photos">
+            <div class="photo" id="boyPhoto">
+                <img src="/api/placeholder/400/400" alt="他" id="boyImage">
+            </div>
+            <div class="heart-center">🌷</div>
+            <div class="photo" id="girlPhoto">
+                <img src="/api/placeholder/400/400" alt="她" id="girlImage">
+            </div>
+        </div>
+        
+        <div class="counter" id="daysCounter">0</div>
+        <div class="counter-text">Days Now</div>
+    </div>
+    
+    <!-- 隐藏的管理页面链接 -->
+    <a href="admin.html" class="admin-link">⚙️</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const daysCounter = document.getElementById('daysCounter');
+            const startDateDisplay = document.getElementById('startDate');
+            const boyImage = document.getElementById('boyImage');
+            const girlImage = document.getElementById('girlImage');
+            
+            // 从本地存储中获取日期和照片
+            const storedDate = localStorage.getItem('anniversaryDate');
+            const storedBoyPhoto = localStorage.getItem('boyPhoto');
+            const storedGirlPhoto = localStorage.getItem('girlPhoto');
+            
+            // 如果有存储的日期，则进行计算和显示
+            if (storedDate) {
+                updateCounter(storedDate);
+                startDateDisplay.textContent = formatDate(storedDate);
+            }
+            
+            // 如果有存储的照片，则显示
+            if (storedBoyPhoto) {
+                boyImage.src = storedBoyPhoto;
+            }
+            
+            if (storedGirlPhoto) {
+                girlImage.src = storedGirlPhoto;
+            }
+            
+            // 计算和更新天数
+            function updateCounter(dateStr) {
+                const startDate = new Date(dateStr);
+                const today = new Date();
+                
+                // 计算天数差异
+                const diffTime = Math.abs(today - startDate);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                // 更新计数器显示
+                daysCounter.textContent = diffDays;
+                
+                // 添加计数器动画
+                daysCounter.classList.add('pulse');
+                setTimeout(() => {
+                    daysCounter.classList.remove('pulse');
+                }, 1000);
+            }
+            
+            // 格式化日期为友好显示
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                
+                return `${year}-${month}-${day}`;
+            }
+            
+            // 添加随机气泡动画
+            function createBubbles() {
+                const bubblesContainer = document.querySelector('.bubbles');
+                
+                for (let i = 0; i < 5; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    
+                    // 随机位置和大小
+                    const size = Math.random() * 30 + 10;
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 15;
+                    
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    bubble.style.left = `${left}%`;
+                    bubble.style.animationDelay = `${delay}s`;
+                    
+                    bubblesContainer.appendChild(bubble);
+                }
+            }
+            
+            // 初始化时创建气泡
+            createBubbles();
+        });
+    </script>
+</body>
+</html>
