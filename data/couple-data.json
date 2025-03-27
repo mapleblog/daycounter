@@ -1,0 +1,15 @@
+{
+  "anniversaryDate": "2023-01-01",
+  "profiles": {
+    "boy": {
+      "photo": "",
+      "message": "这里是男生的留言",
+      "traits": "这里是男生的个人特征"
+    },
+    "girl": {
+      "photo": "",
+      "message": "这里是女生的留言",
+      "traits": "这里是女生的个人特征"
+    }
+  }
+}

@@ -367,6 +367,70 @@ textarea.form-control {
     gap: 15px;
 }
 
+/* GitHub状态指示器 */
+.github-status {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.status-disconnected {
+    background-color: #ccc;
+}
+
+.status-waiting {
+    background-color: #ffc107;
+}
+
+.status-testing {
+    background-color: #17a2b8;
+    animation: blink 1s infinite;
+}
+
+.status-connected {
+    background-color: #28a745;
+}
+
+.status-warning {
+    background-color: #fd7e14;
+}
+
+.status-error {
+    background-color: #dc3545;
+}
+
+.status-syncing {
+    background-color: #6f42c1;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.card-description {
+    margin-bottom: 15px;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .container {
@@ -384,6 +448,17 @@ textarea.form-control {
     .preview-image {
         width: 120px;
         height: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .button-group .btn {
+        width: 100%;
+        margin-bottom: 5px;
     }
 }
 

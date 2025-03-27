@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- 添加GitHub API相关库 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="bubbles">
@@ -29,7 +31,7 @@
         <div class="profiles-container">
             <div class="profile">
                 <div class="photo" id="boyPhoto">
-                    <img src="/images/boy-default.jpg" alt="他" id="boyImage">
+                    <img src="images/boy-default.jpg" alt="他" id="boyImage">
                 </div>
                 <div class="profile-info">
                     <div class="profile-message" id="boyMessage">这里是男生的留言...</div>
@@ -42,7 +44,7 @@
             
             <div class="profile">
                 <div class="photo" id="girlPhoto">
-                    <img src="/images/girl-default.jpg" alt="她" id="girlImage">
+                    <img src="images/girl-default.jpg" alt="她" id="girlImage">
                 </div>
                 <div class="profile-info">
                     <div class="profile-message" id="girlMessage">这里是女生的留言...</div>
@@ -54,6 +56,12 @@
         
         <div class="counter" id="daysCounter">0</div>
         <div class="counter-text">Days Now</div>
+        
+        <!-- 添加数据来源信息和刷新按钮 -->
+        <div class="data-source-info">
+            <span id="dataSourceInfo">数据加载中...</span>
+            <button id="refreshDataButton" class="refresh-button">刷新数据</button>
+        </div>
     </div>
     
     <!-- 登录模态框 -->
@@ -87,9 +95,41 @@
         </div>
     </div>
     
+    <!-- GitHub配置模态框 -->
+    <div class="modal" id="githubConfigModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>GitHub配置</h2>
+            <div class="github-config-form">
+                <div class="form-group">
+                    <label for="repoOwner">仓库所有者:</label>
+                    <input type="text" id="repoOwner" placeholder="GitHub用户名">
+                </div>
+                <div class="form-group">
+                    <label for="repoName">仓库名称:</label>
+                    <input type="text" id="repoName" placeholder="仓库名称">
+                </div>
+                <div class="form-group">
+                    <label for="dataPath">数据文件路径:</label>
+                    <input type="text" id="dataPath" placeholder="例如: data/couple-data.json" value="data/couple-data.json">
+                </div>
+                <div class="form-group">
+                    <label for="githubToken">GitHub Token (可选):</label>
+                    <input type="password" id="githubToken" placeholder="用于私有仓库或提高API限制">
+                </div>
+                <button id="saveGithubConfig">保存配置</button>
+                <p id="githubConfigMessage"></p>
+            </div>
+        </div>
+    </div>
+    
     <!-- 隐藏的管理页面链接 -->
     <a href="admin.html" class="admin-link">⚙️</a>
+    
+    <!-- GitHub配置链接 -->
+    <a href="#" id="githubConfigLink" class="github-config-link">🔗</a>
 
     <script src="js/script.js"></script>
+    <script src="js/github-integration.js"></script>
 </body>
 </html>
