@@ -752,8 +752,8 @@ footer::before {
     }
     
     .avatar {
-        width: 80px;
-        height: 80px;
+        width: 110px;
+        height: 110px;
     }
     
     .heart {
@@ -856,7 +856,7 @@ footer::before {
     /* Vertical avatar layout */
     .avatars {
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         margin: 20px 0;
     }
     
@@ -873,17 +873,9 @@ footer::before {
     }
     
     .avatar {
-        width: 70px;
-        height: 70px;
+        width: 90px;
+        height: 90px;
         border-width: 2px;
-    }
-    
-    .name-display {
-        font-size: 14px;
-        padding: 5px 10px;
-        margin-top: 10px;
-        width: 80%;
-        box-sizing: border-box;
     }
     
     footer p {
@@ -986,8 +978,8 @@ footer::before {
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto;
@@ -1030,4 +1022,13 @@ footer::before {
 
 .avatar-upload input {
     display: none;
+}
+
+/* 名字显示 */
+.name-display {
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    width: 80%;
+    box-sizing: border-box;
 }
