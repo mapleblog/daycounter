@@ -36,17 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // 计算已经过去的天数
         const days = Math.floor(totalElapsedSeconds / 3600 / 24);
         
-        // 计算到今天午夜（明天凌晨12点）的剩余时间
-        const tomorrow = new Date(currentDate);
-        tomorrow.setDate(currentDate.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
+        // 计算今天已经过去的时间（从凌晨12点开始）
+        const today = new Date(currentDate);
+        today.setHours(0, 0, 0, 0);
         
-        const remainingSeconds = Math.floor((tomorrow - currentDate) / 1000);
+        const elapsedSecondsToday = Math.floor((currentDate - today) / 1000);
         
-        // 计算剩余的小时、分钟和秒数
-        const hours = Math.floor(remainingSeconds / 3600);
-        const minutes = Math.floor((remainingSeconds % 3600) / 60);
-        const seconds = remainingSeconds % 60;
+        // 计算已经过去的小时、分钟和秒数
+        const hours = Math.floor(elapsedSecondsToday / 3600);
+        const minutes = Math.floor((elapsedSecondsToday % 3600) / 60);
+        const seconds = elapsedSecondsToday % 60;
         
         // 更新DOM
         daysEl.innerHTML = days;
