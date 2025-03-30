@@ -818,7 +818,10 @@ footer::before {
 
 /* 心形动画 */
 .heart {
-    color: #ff5e62;
+    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     font-size: 2rem;
     animation: heartbeat 1.5s ease infinite;
     display: inline-block;
