@@ -575,19 +575,10 @@ footer::before {
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
     letter-spacing: 0.5px;
-}
-
-.name-display:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    cursor: pointer;
 }
 
 /* Days label */
@@ -642,6 +633,9 @@ footer::before {
     
     .counter-container {
         gap: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
     }
     
     .counter {
@@ -680,6 +674,7 @@ footer::before {
     .bubble {
         width: 100px;
         height: 100px;
+        opacity: 0.4; /* More transparent on mobile */
     }
     
     .bubble-1 {
@@ -714,17 +709,35 @@ footer::before {
 }
 
 @media (max-width: 480px) {
+    body {
+        -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjust */
+        touch-action: manipulation; /* Disable double-tap zoom on mobile */
+    }
+    
+    .container {
+        width: 95%;
+        padding: 20px 10px;
+        margin: 10px auto;
+    }
+    
     header .title {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
     }
     
     .counter-container {
         gap: 8px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
     }
     
     .counter {
-        min-width: 60px;
+        min-width: auto;
+        width: 100%;
         padding: 10px 8px;
+        margin: 0;
     }
     
     .counter span {
@@ -735,27 +748,71 @@ footer::before {
         font-size: 0.6rem;
     }
     
+    /* Vertical avatar layout */
     .avatars {
-        gap: 15px;
+        flex-direction: column;
+        gap: 10px;
+        margin: 20px 0;
+    }
+    
+    .avatar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .heart {
+        font-size: 1.2rem;
+        margin: 10px 0;
+        order: 2; /* Place heart between avatars */
     }
     
     .avatar {
         width: 70px;
         height: 70px;
-    }
-    
-    .heart {
-        font-size: 1.2rem;
+        border-width: 2px;
     }
     
     .name-display {
         font-size: 14px;
         padding: 5px 10px;
         margin-top: 10px;
+        width: 80%;
+        box-sizing: border-box;
     }
     
     footer p {
-        font-size: 14px;
+        font-size: 12px;
+        padding: 0 10px;
+    }
+    
+    .bubble {
+        width: 80px;
+        height: 80px;
+        opacity: 0.3; /* Even more transparent on small screens */
+    }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    /* CSS specific to iOS devices */
+    body {
+        height: -webkit-fill-available;
+    }
+    
+    html {
+        height: -webkit-fill-available;
+    }
+    
+    .container {
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
+    
+    .counter, .name-display, section {
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
     }
 }
 
