@@ -131,6 +131,18 @@ body::before {
     }
 }
 
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
 .container {
     max-width: 800px;
     width: 90%;
@@ -618,20 +630,132 @@ footer::before {
 /* 响应式设计 */
 @media (max-width: 768px) {
     .container {
-        padding: 10px;
+        width: 95%;
+        padding: 25px 15px;
+        margin: 20px auto;
     }
     
-    .days-count {
-        font-size: 2rem;
+    header .title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
     }
     
-    .form-actions {
-        flex-direction: column;
+    .counter-container {
         gap: 10px;
     }
     
-    button {
-        width: 100%;
+    .counter {
+        min-width: 70px;
+        padding: 15px 10px;
+    }
+    
+    .counter span {
+        font-size: 1.8rem;
+    }
+    
+    .counter .label {
+        font-size: 0.7rem;
+    }
+    
+    .days-label {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .heart {
+        font-size: 1.5rem;
+    }
+    
+    .name-display {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+    
+    /* Fix bubble positioning for mobile */
+    .bubble {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .bubble-1 {
+        top: 10%;
+        left: 10%;
+    }
+    
+    .bubble-2 {
+        top: 20%;
+        right: 10%;
+    }
+    
+    .bubble-3 {
+        bottom: 30%;
+        left: 15%;
+    }
+    
+    .bubble-4 {
+        bottom: 20%;
+        right: 15%;
+    }
+    
+    .bubble-5 {
+        top: 40%;
+        left: 5%;
+    }
+    
+    .bubble-6 {
+        top: 60%;
+        right: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    header .title {
+        font-size: 2rem;
+    }
+    
+    .counter-container {
+        gap: 8px;
+    }
+    
+    .counter {
+        min-width: 60px;
+        padding: 10px 8px;
+    }
+    
+    .counter span {
+        font-size: 1.5rem;
+    }
+    
+    .counter .label {
+        font-size: 0.6rem;
+    }
+    
+    .avatars {
+        gap: 15px;
+    }
+    
+    .avatar {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .heart {
+        font-size: 1.2rem;
+    }
+    
+    .name-display {
+        font-size: 14px;
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
+    
+    footer p {
+        font-size: 14px;
     }
 }
 
@@ -679,43 +803,41 @@ footer::before {
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    animation: float 6s ease-in-out infinite;
-    background: white;
+    animation: float 5s ease-in-out infinite;
+}
+
+#avatar1 {
+    animation-delay: 0s;
+}
+
+#avatar2 {
+    animation-delay: 1s;
+}
+
+.avatar:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: all 0.3s ease;
 }
 
-.avatar:hover img {
-    transform: scale(1.1);
-}
-
+/* Remove avatar upload styling */
 .avatar-upload {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    text-align: center;
-    padding: 5px 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.avatar:hover .avatar-upload {
-    opacity: 1;
+    display: none;
 }
 
 .avatar-upload label {
