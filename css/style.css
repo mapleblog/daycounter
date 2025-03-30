@@ -233,7 +233,7 @@ h1::before {
 }
 
 h1::after {
-    content: 'FRIENDSHIP';
+    content: 'CAMARADERIE';
     position: absolute;
     left: 2px;
     top: 2px;
