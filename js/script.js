@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新计数器
     function updateCounter() {
         // 使用固定开始日期（2024-11-30）
-        const startDate = new Date('2024-11-30');
+        const startDate = new Date('2025-02-24');
         const currentDate = new Date();
         
         const totalSeconds = Math.floor((currentDate - startDate) / 1000);
