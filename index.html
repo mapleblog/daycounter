@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friendship</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background animation elements -->
+    <div class="bg-animation"></div>
+    
+    <!-- Dynamic bubbles -->
+    <div class="bubble" style="width: 80px; height: 80px; top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="bubble" style="width: 120px; height: 120px; top: 20%; left: 80%; animation-delay: 1s;"></div>
+    <div class="bubble" style="width: 50px; height: 50px; top: 60%; left: 30%; animation-delay: 2s;"></div>
+    <div class="bubble" style="width: 100px; height: 100px; top: 70%; left: 70%; animation-delay: 3s;"></div>
+    <div class="bubble" style="width: 65px; height: 65px; top: 40%; left: 50%; animation-delay: 4s;"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Friendship</h1>
+        </header>
+        
+        <section class="friendship-section">
+            <div class="avatars">
+                <div class="avatar-container">
+                    <div class="avatar" id="avatar1">
+                        <img src="img/owl.jpg" alt="头像1" id="avatar1-img">
+                    </div>
+                    <div class="name-display" id="name1-display">朋友</div>
+                </div>
+                
+                <div class="heart">
+                    <i class="fas fa-heart"></i>
+                </div>
+                
+                <div class="avatar-container">
+                    <div class="avatar" id="avatar2">
+                        <img src="img/owl.jpg" alt="头像2" id="avatar2-img">
+                    </div>
+                    <div class="name-display" id="name2-display">我</div>
+                </div>
+            </div>
+            
+            <div class="save-button-container">
+            </div>
+        </section>
+        
+        <section class="counter-section">
+            <div class="days-label">Days of Friendship</div>
+            <div class="counter-container">
+                <div class="counter">
+                    <span id="days">0</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="counter">
+                    <span id="hours">0</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="counter">
+                    <span id="minutes">0</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="counter">
+                    <span id="seconds">0</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <p id="saved-message"></p>
+            <p>Friendship is a single soul dwelling in two bodies. <i class="fas fa-heart"></i></p>
+        </footer>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
