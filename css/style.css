@@ -218,7 +218,7 @@ h1 {
 }
 
 h1::before {
-    content: 'FRIENDSHIP';
+    content: 'CAMARADERIE';
     position: absolute;
     left: 0;
     top: 0;
